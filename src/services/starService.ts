@@ -7,8 +7,17 @@ const starService = axios.create({
     baseURL: 'https://swapi.dev/api',
 });
 
-export const getPeople = async (): Promise<GetMany<Character>> => {
-    const res = await starService.get(ENDPOINTS.people);
+interface Pagination {
+    page: number,
+}
+
+export const getPeople = async (query: Pagination): Promise<GetMany<Character>> => {
+    const { page } = query;
+    const res = await starService.get(ENDPOINTS.people, {
+        params: {
+            page: page
+        }
+    });
     return res.data;
 }
 
