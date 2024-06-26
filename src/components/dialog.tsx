@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Character } from "../interfaces/character.interface";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { Planet } from "../interfaces/planet.interface";
+import { AxiosError } from "axios";
+import { toast } from "sonner";
 
 interface DialogProps {
     chosenOne: Character | null,
@@ -19,7 +21,14 @@ export function CharacterDialog(props: DialogProps) {
         fetch(chosenOne.homeworld)
             .then(res => res.json())
             .then((data: Planet) => setPlanet(data))
-            .catch(err => console.error(err))
+            .catch(err => {
+                if (err instanceof AxiosError) {
+                    toast.error(err.message);
+                }
+                else toast.error('Something went wrong');
+
+                console.error(err)
+            })
     }, [chosenOne])
 
     return (

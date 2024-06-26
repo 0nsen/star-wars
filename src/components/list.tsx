@@ -3,6 +3,8 @@ import { Character } from "../interfaces/character.interface";
 import { getPeople } from "../services/starService";
 import { CharacterCard } from "./card";
 import { CharacterDialog } from "./dialog";
+import { toast } from "sonner";
+import { AxiosError } from "axios";
 
 export function CharacterList() {
     const [people, setPeople] = useState<Character[]>([]);
@@ -10,10 +12,15 @@ export function CharacterList() {
 
     useEffect(() => {
         getPeople()
-            .then(data => {
-                setPeople(data.results);
+            .then(data => setPeople(data.results))
+            .catch(err => {
+                if (err instanceof AxiosError) {
+                    toast.error(err.message);
+                }
+                else toast.error('Something went wrong');
+
+                console.error(err);
             })
-            .catch(err => console.error(err))
     }, [])
 
     return (
