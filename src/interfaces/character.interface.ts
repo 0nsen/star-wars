@@ -4,4 +4,5 @@ export interface Character {
     mass: string,
     birth_year: string,
     gender: string,
+    homeworld: string,
 }

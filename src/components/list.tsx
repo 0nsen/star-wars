@@ -10,7 +10,9 @@ export function CharacterList() {
 
     useEffect(() => {
         getPeople()
-            .then(data => setPeople(data.results))
+            .then(data => {
+                setPeople(data.results);
+            })
             .catch(err => console.error(err))
     }, [])
 
