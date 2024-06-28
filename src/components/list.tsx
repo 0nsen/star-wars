@@ -43,8 +43,8 @@ export function CharacterList() {
             />
 
             <nav>
-                <button className="p-2 text-white" disabled={!data?.next} onClick={() => setPage(page + 1)}>Next</button>
                 <button className="p-2 text-white" disabled={page == 1} onClick={() => setPage(page - 1)}>Previous</button>
+                <button className="p-2 text-white" disabled={!data?.next} onClick={() => setPage(page + 1)}>Next</button>
             </nav>
         </>
     )
